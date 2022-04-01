@@ -1,13 +1,22 @@
 package com.example.app.entities;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "books")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(length =100,nullable = false)
     private String title;
+    @Column(length =100,nullable = false)
     private String author;
 
-    public Book(){}
+    public Book() {
+    }
 
     public Book(String title, String author) {
         this.title = title;
