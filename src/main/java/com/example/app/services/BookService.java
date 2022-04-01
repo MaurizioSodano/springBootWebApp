@@ -16,7 +16,7 @@ public class BookService {
 
     public List<Book> getAllBooks() {
         List<Book> books =new ArrayList<>();
-        bookDao.findAll().forEach(book->books.add(book));
+        bookDao.findAll().forEach(books::add);
 
         return books;
     }
