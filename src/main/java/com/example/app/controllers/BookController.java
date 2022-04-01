@@ -1,32 +1,31 @@
 package com.example.app.controllers;
 
 import com.example.app.entities.Book;
+import com.example.app.services.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
 public class BookController {
 
-    @GetMapping("/books")
-    public List<Book> books(){
+    @Autowired
+    private BookService bookService;
 
-        var book1 =new Book("Great Expectations","Charles Dickens");
-        var book2 =new Book("Great Expectations","Charles Dickens");
-        var books = Arrays.asList(book1,book2);
-        return books;
+    @GetMapping("/books")
+    public List<Book> books() {
+        return bookService.getAllBooks();
     }
+
     @GetMapping("/books/{id}")
-    public Book getBook(@PathVariable("id") Long id){
-        var book =new Book("Great Expectations","Charles Dickens");
-        book.setId(id);
-        return book;
+    public Book getBook(@PathVariable("id") Long id) {
+        return bookService.getBook(id);
     }
+
     @PostMapping("/books")
     public Book createBook(@RequestBody Book book) {
-        System.out.println("creating :" + book);
-        book.setId(7L);
-        return book;
+        bookService.saveBook(book);
+        return null;
     }
 }
